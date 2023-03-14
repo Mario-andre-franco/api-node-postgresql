@@ -20,3 +20,14 @@ exports.listAllProjects = async (req,res) => {
     const response = await db.query('SELECT * FROM projects ORDER BY projectname ASC')
     res.status(200).send(response.rows)
 }
+
+exports.listOnlyActiveProjects = async (req,res) => {
+    const response = await db.query('SELECT * FROM projects WHERE active = true')
+    if(response.rows == 0) {
+        res.status(200).send('NO ACTIVE PROJECTS')
+    }
+    else {
+        res.status(200).send(response.rows)
+    }
+    
+}
